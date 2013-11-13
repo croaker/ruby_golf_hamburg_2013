@@ -19,6 +19,7 @@ module RubyGolf
   # ouput:  a 'ruby style' version of the identifier: all lowercase, former case
   #         changes to upper case get a prepended underscore
   def self.underscore(s)
+    s.gsub(/[-]{,1}([A-Z])/) { "_#{$1.downcase}" }.gsub(/^_/,'')
   end
 
 
