@@ -19,7 +19,7 @@ module RubyGolf
   # ouput:  a 'ruby style' version of the identifier: all lowercase, former case
   #         changes to upper case get a prepended underscore
   def self.underscore(s)
-    s.gsub(/[-]{,1}([A-Z])/) { "_#{$1.downcase}" }.gsub(/^_/,'')
+    s.gsub(/[-]{,1}([A-Z])/) { "_"+$1.downcase }.gsub(/^_/,'')
   end
 
 
@@ -74,6 +74,14 @@ module RubyGolf
   #           level are prepended by two additional spaces per level away from
   #           the top level
   def self.pretty_hash(h)
+    case h
+    when Hash
+      h.map { |k,v| "#{k}:\n#{pretty_hash(v)}" } * "\n"
+    when Array
+      h.map { |v| pretty_hash(v) } * "\n"
+    else
+      "- #{h}"
+    end
   end
 
 
